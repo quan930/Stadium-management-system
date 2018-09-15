@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  * 订单
- * 订单编号，预定日期，预定场地编号，租借场地日期，租借场地开始时间，租借场地结束时间，是否按时到场,顾客id
+ * 订单编号，预定日期，预定场地编号，租借场地日期，租借场地开始时间，租借场地结束时间，是否按时到场,顾客id,是否取消
  */
 public class Order implements Serializable {
     private String serialNumber;
@@ -15,7 +15,8 @@ public class Order implements Serializable {
     private Date startTime;
     private Date endTime;
     private Boolean onTime;
-    private String id;
+    private String id;//new
+    private Boolean cancel;//new 取消true
 
     @Override
     public String toString() {
@@ -84,5 +85,13 @@ public class Order implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public Boolean getCancel() {
+        return cancel;
+    }
+
+    public void setCancel(Boolean cancel) {
+        this.cancel = cancel;
     }
 }

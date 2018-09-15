@@ -7,9 +7,6 @@ import java.io.Serializable;
  * 场地编号，场地名称，所属区域，所属场馆，适合运动类型，运动简介，准入年龄上限，准入年龄下限，租金,当前订单数量
  */
 public class SportVenue implements Serializable {
-    /**
-     * 当前订单数量
-     */
     private String serialNumber;//key
     private String serialName;
     private String district;//区域
@@ -19,7 +16,7 @@ public class SportVenue implements Serializable {
     private Integer ageUpperLimit;//年龄上限
     private Integer ageLowerLimit;//年龄下限
     private Double rent;//租金
-    private Integer orderNumber;
+    private Integer orderNumber;//当前订单数量 new
     @Override
     public String toString() {
         return "场地编号:"+serialNumber+"\t场地名称:"+serialName+"\t场地所属区域:"+district+"\t所属场馆:"+stadium+"\t运动类型:"+motionType+"\t运动简介:"+motionProfile+"\t年龄上限:"+ageUpperLimit+"\t年龄下限:"+ageLowerLimit+"租金:"+rent+"\t订单数量:"+orderNumber;

@@ -26,43 +26,58 @@ public class ClientServiceImpl implements IClientService {
     }
 
     @Override
-    public SportVenue findSportByName(String name) {
-        return null;
+    public List<SportVenue> findSportByName(String name) {//ok
+        List<SportVenue> pojos = new ArrayList<>();
+        for (int i = 0; i < sportVenues.size(); i++) {
+            if(sportVenues.get(i).getSerialName().equals(name)) {
+                pojos.add(sportVenues.get(i));
+            }else {
+                continue;
+            }
+        }
+        return pojos;
     }
 
     @Override
-    public List<SportVenue> findSportsByStadium(String stadium) {
-        return null;
+    public List<SportVenue> findSportsByStadium(String stadium) {//ok
+        List<SportVenue> pojos = new ArrayList<>();
+        for (int i = 0; i < sportVenues.size(); i++) {
+            if(sportVenues.get(i).getStadium().equals(stadium)) {
+                pojos.add(sportVenues.get(i));
+            }else {
+                continue;
+            }
+        }
+        return pojos;
     }
 
     @Override
-    public List<SportVenue> findSportsByTypeAndDistrict(String motionType, String district) {
-        return null;
+    public List<SportVenue> findSportsByTypeAndDistrict(String motionType, String district) {//ok
+        List<SportVenue> pojos=new ArrayList<>();
+        for(int i=0;i<sportVenues.size();i++) {
+            if((sportVenues.get(i).getMotionType().equals(motionType))&&(sportVenues.get(i).getDistrict().equals(district))) {
+                pojos.add(sportVenues.get(i));
+            }else {
+                continue;
+            }
+        }
+        return pojos;
     }
 
     @Override
     public List<SportVenue> findSportsByReserve(boolean yOrN) {
-        List<SportVenue> pojos = new ArrayList<>();
-
-        Set<String> serialNumbers = new HashSet<>();//场地编号
-        for (int i = 0; i < orders.size(); i++) {
-            serialNumbers.add(orders.get(i).getReservationStadiumSerialNumber());
-        }
-
-        if (yOrN){
+        //订单以使用，弃用
+        List<SportVenue> pojos=new ArrayList<>();
+        if(yOrN) {
             for (int i = 0; i < sportVenues.size(); i++) {
-                if(serialNumbers.contains(sportVenues.get(i).getSerialNumber())){
+                if(sportVenues.get(i).getOrderNumber()>0) {
                     pojos.add(sportVenues.get(i));
-                }else {
-                    continue;
                 }
             }
         }else {
             for (int i = 0; i < sportVenues.size(); i++) {
-                if(!serialNumbers.contains(sportVenues.get(i).getSerialNumber())){
+                if(sportVenues.get(i).getOrderNumber()<=0) {
                     pojos.add(sportVenues.get(i));
-                }else {
-                    continue;
                 }
             }
         }
@@ -71,14 +86,13 @@ public class ClientServiceImpl implements IClientService {
 
     @Override
     public List<SportVenue> listSportsByRent() {
-        List<SportVenue> sportVenues = this.sportVenues;
         Collections.sort(sportVenues, new Comparator<SportVenue>() {
             @Override
             public int compare(SportVenue o1, SportVenue o2) {
-                if (o1.getRent() > o2.getRent()){
+                if(o1.getRent()>o2.getRent()) {
                     return 1;
                 }
-                if (o1.getRent() == o2.getRent()){
+                if(o1.getRent()==o2.getRent()) {
                     return 0;
                 }
                 return -1;
@@ -89,9 +103,55 @@ public class ClientServiceImpl implements IClientService {
 
     @Override
     public List<SportVenue> listSportsByReserve() {
-//        Map<String,Integer>
+        Collections.sort(sportVenues, new Comparator<SportVenue>() {
+            @Override
+            public int compare( SportVenue o1, SportVenue o2) {
+                if(o1.getOrderNumber()<o2.getOrderNumber()) {
+                    return 1;
+                }
+                if (o1.getOrderNumber()==o2.getOrderNumber()) {
+                    return 0;
+                }
+                return -1;
+            }
+        });
+        return sportVenues;
+    }
 
+    @Override
+    public boolean reserve(Order order) {
+        //费用 时间冲突 年龄 爽约
+//        order.getReservationStadiumSerialNumber();
+//        for (int i = 0; i < ; i++) {
+//
+//        }
+//        long hour = (order.getEndTime().getTime()-order.getStartTime().getTime())/1000/60/60;
+//
+//        if (){
+//
+//        }
+//
+        return false;
+    }
+
+    @Override
+    public boolean reserve(List<Order> orders) {
+        return false;
+    }
+
+    @Override
+    public boolean update(Personnel personnel) {
+        return false;
+    }
+
+    @Override
+    public List<Order> findOrdersByPersonnel() {
         return null;
+    }
+
+    @Override
+    public boolean cancelReserve(String serialNumber) {
+        return false;
     }
 
     private void init() throws ParseException {
@@ -121,11 +181,11 @@ public class ClientServiceImpl implements IClientService {
 
         SportVenue sportVenue2 = new SportVenue();
         sportVenue2.setSerialNumber("112aab");
-        sportVenue2.setSerialName("沈北蓝球场");
+        sportVenue2.setSerialName("沈北羽毛球场");
         sportVenue2.setDistrict("沈北");
         sportVenue2.setStadium("沈北大体育场");
-        sportVenue2.setMotionType("篮球");
-        sportVenue2.setMotionProfile("篮球很好么？？？");
+        sportVenue2.setMotionType("羽毛球");
+        sportVenue2.setMotionProfile("羽毛球真好啊！！！");
         sportVenue2.setAgeUpperLimit(30);
         sportVenue2.setAgeLowerLimit(18);
         sportVenue2.setRent(36.9);
@@ -161,8 +221,8 @@ public class ClientServiceImpl implements IClientService {
         sportVenues.add(sportVenue4);
 
         Order order1 = new Order();
-        order1.setSerialNumber("1234per2018911");
-        order1.setReservationDate(new SimpleDateFormat("yyyy:MM:dd:HH:mm").parse("2018:9:11:11:11"));
+        order1.setSerialNumber("1234per201809111111");
+        order1.setReservationDate(new SimpleDateFormat("yyyy:MM:dd:HH:mm").parse("2018:09:11:11:11"));
         order1.setReservationStadiumSerialNumber("212bab");
         order1.setLoanDate(new SimpleDateFormat("yyyy:MM:dd").parse("2018:9:20"));
         order1.setStartTime(new SimpleDateFormat("yyyy:MM:dd:HH:mm").parse("2018:9:20:09:00"));
@@ -171,8 +231,8 @@ public class ClientServiceImpl implements IClientService {
         order1.setId("1234per");
 
         Order order2 = new Order();
-        order2.setSerialNumber("1234per2018910");
-        order2.setReservationDate(new SimpleDateFormat("yyyy:MM:dd:HH:mm").parse("2018:9:10:9:15"));
+        order2.setSerialNumber("1234per201809100915");
+        order2.setReservationDate(new SimpleDateFormat("yyyy:MM:dd:HH:mm").parse("2018:09:10:09:15"));
         order2.setReservationStadiumSerialNumber("111aaa");
         order2.setLoanDate(new SimpleDateFormat("yyyy:MM:dd").parse("2018:9:19"));
         order2.setStartTime(new SimpleDateFormat("yyyy:MM:dd:HH:mm").parse("2018:9:19:13:20"));
@@ -181,8 +241,8 @@ public class ClientServiceImpl implements IClientService {
         order2.setId("1234per");
 
         Order order3 = new Order();
-        order3.setSerialNumber("1234per201899");
-        order3.setReservationDate(new SimpleDateFormat("yyyy:MM:dd:HH:mm").parse("2018:9:9:19:50"));
+        order3.setSerialNumber("1234per201809091950");
+        order3.setReservationDate(new SimpleDateFormat("yyyy:MM:dd:HH:mm").parse("2018:09:09:19:50"));
         order3.setReservationStadiumSerialNumber("212bab");
         order3.setLoanDate(new SimpleDateFormat("yyyy:MM:dd").parse("2018:9:18"));
         order3.setStartTime(new SimpleDateFormat("yyyy:MM:dd:HH:mm").parse("2018:9:18:16:15"));

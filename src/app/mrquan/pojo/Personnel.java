@@ -5,8 +5,8 @@ import java.io.Serializable;
 /**
  *  管理员/顾客
  *  公共属性:ID，密码，名字，性别(true为男)，年龄，电话，邮箱
- *  管理员与普通用户:administrator为真管理员，反之则顾客
- *  顾客特有属性:余额，区域
+ *  管理员与普通用户:administrator为真管理员，反之则顾客 !!! 必须有值 true or  false
+ *  顾客特有属性:余额，区域，爽约
  *  管理员特有属性:所属场馆
  *  注：如personnel为顾客场馆属性为null，反之余额，区域皆为null
  */
@@ -23,6 +23,7 @@ public class Personnel implements Serializable {
     private String email;
     private Double balance;//余额
     private String district;//区域
+    private Integer abrogate;//爽约
     private Boolean administrator;//管理员
     private String stadium;//场馆
 
@@ -117,5 +118,13 @@ public class Personnel implements Serializable {
 
     public void setStadium(String stadium) {
         this.stadium = stadium;
+    }
+
+    public Integer getAbrogate() {
+        return abrogate;
+    }
+
+    public void setAbrogate(Integer abrogate) {
+        this.abrogate = abrogate;
     }
 }
