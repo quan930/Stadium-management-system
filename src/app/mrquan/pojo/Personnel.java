@@ -29,7 +29,7 @@ public class Personnel implements Serializable {
 
     @Override
     public String toString() {
-        return "ID:"+id+"\t密码:"+password+"\t名字:"+name+"\t性别:"+sex+"\t年龄:"+age+"\t电话:"+telephone+"\t邮箱:"+email+"\t是否管理员:"+administrator+"\t顾客余额:"+balance+"\t顾客区域:"+district+"管理员场馆"+stadium;
+        return "ID:"+id+"\t密码:"+password+"\t名字:"+name+"\t性别:"+sex+"\t年龄:"+age+"\t电话:"+telephone+"\t邮箱:"+email+"\t是否管理员:"+administrator+"\t顾客余额:"+balance+"\t顾客区域:"+district+"\t顾客爽约:"+abrogate+"\t管理员场馆:"+stadium;
     }
 
     public String getId() {

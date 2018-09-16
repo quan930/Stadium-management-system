@@ -2,14 +2,9 @@ package app.mrquan.dao.impl;
 
 import app.mrquan.dao.ISportVenueDAO;
 import app.mrquan.dbc.DatabaseConnection;
-import app.mrquan.pojo.Personnel;
 import app.mrquan.pojo.SportVenue;
-import org.omg.CORBA.DATA_CONVERSION;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,7 +18,7 @@ public class SportVenueDAOImpl implements ISportVenueDAO {
     }
 
     @Override
-    public List<SportVenue> findSportVenuesByName(String name) throws SQLException {
+    public List<SportVenue> findSportVenuesByName(String name) throws SQLException {//ok
         List<SportVenue> all = new ArrayList<>();
         try {
             preparedStatement = con.prepareStatement("select * from sportVenues where serialName = ?");
@@ -48,12 +43,14 @@ public class SportVenueDAOImpl implements ISportVenueDAO {
                  *  pojo.setOrderNumber();//当前订单数量
                  */
                 int abrogate = 0;
-                preparedStatement = con.prepareStatement("select startTime from orders where reservationStadiumSerialNumber = ？");
+                preparedStatement = con.prepareStatement("select startTime from orders where reservationStadiumSerialNumber = ? and (cancel = ? or cancel is ?)");
                 preparedStatement.setString(1,serialNumber);
+                preparedStatement.setBoolean(2,false);
+                preparedStatement.setNull(3,Types.BOOLEAN);
                 ResultSet rsOrd = preparedStatement.executeQuery();
                 while (rsOrd.next()){
                     rsOrd.getDate(1);
-                    if(new Date().getTime()<rsOrd.getDate(1).getTime()){
+                    if((new Date().getTime())<(rsOrd.getDate(1).getTime())){
                         abrogate++;
                     }
                 }
@@ -61,6 +58,7 @@ public class SportVenueDAOImpl implements ISportVenueDAO {
                 all.add(pojo);
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             throw e;
         }finally {
             databaseConnection.close();
@@ -69,7 +67,7 @@ public class SportVenueDAOImpl implements ISportVenueDAO {
     }
 
     @Override
-    public List<SportVenue> list() throws SQLException {
+    public List<SportVenue> list() throws SQLException {//ok
         List<SportVenue> all = new ArrayList<>();
         try {
             preparedStatement = con.prepareStatement("select * from sportVenues");
@@ -91,10 +89,13 @@ public class SportVenueDAOImpl implements ISportVenueDAO {
                  *  订单数量
                  *  orders表
                  *  pojo.setOrderNumber();//当前订单数量
+                 *  判断取消
                  */
                 int abrogate = 0;
-                preparedStatement = con.prepareStatement("select startTime from orders where reservationStadiumSerialNumber = ？");
+                preparedStatement = con.prepareStatement("select startTime from orders where reservationStadiumSerialNumber = ? and (cancel = ? or cancel is ?)");
                 preparedStatement.setString(1,serialNumber);
+                preparedStatement.setBoolean(2,false);
+                preparedStatement.setNull(3,Types.BOOLEAN);
                 ResultSet rsOrd = preparedStatement.executeQuery();
                 while (rsOrd.next()){
                     rsOrd.getDate(1);
@@ -106,6 +107,7 @@ public class SportVenueDAOImpl implements ISportVenueDAO {
                 all.add(pojo);
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             throw e;
         }finally {
             databaseConnection.close();
@@ -119,7 +121,7 @@ public class SportVenueDAOImpl implements ISportVenueDAO {
         try {
             con.setAutoCommit(false);//1,首先把Auto commit设置为false,不让它自动提交
             //表 sportVenues
-            preparedStatement = con.prepareStatement("insert into sportVenues values (?,?,?,?,?,?,?,?,?,?,?)");
+            preparedStatement = con.prepareStatement("insert into sportVenues values (?,?,?,?,?,?,?,?,?)");
             preparedStatement.setString(1,pojo.getSerialNumber());
             preparedStatement.setString(2,pojo.getSerialName());
             preparedStatement.setString(3,pojo.getDistrict());
@@ -135,6 +137,7 @@ public class SportVenueDAOImpl implements ISportVenueDAO {
             con.commit();//2,进行手动提交（commit
             lenAll = 1;
         } catch (SQLException e) {
+            e.printStackTrace();
             con.rollback();
             throw e;
         }finally {

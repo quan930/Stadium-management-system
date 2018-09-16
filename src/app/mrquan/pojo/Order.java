@@ -1,6 +1,7 @@
 package app.mrquan.pojo;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -20,7 +21,12 @@ public class Order implements Serializable {
 
     @Override
     public String toString() {
-        return "订单编号:"+serialNumber+"\t预定日期:"+reservationDate+"\t预定场地编号:"+reservationStadiumSerialNumber+"\t租借场地日期:"+loanDate+"\t租借场地开始时间:"+startTime+"\t租借场地结束时间:"+endTime+"\t是否按时到场:"+onTime;
+        return "订单编号:"+serialNumber+"\t预定日期:"+new SimpleDateFormat("yyyy:MM:dd HH:mm").format(reservationDate)
+                +"\t预定场地编号:"+reservationStadiumSerialNumber+
+                "\t租借场地日期:"+new SimpleDateFormat("yyyy:MM:dd HH:mm").format(loanDate)+
+                "\t租借场地开始时间:"+new SimpleDateFormat("yyyy:MM:dd HH:mm").format(startTime)+
+                "\t租借场地结束时间:"+new SimpleDateFormat("yyyy:MM:dd HH:mm").format(endTime)+
+                "\t是否按时到场:"+onTime+"\t顾客ID:"+id+"\t取消:"+cancel;
     }
 
     public String getSerialNumber() {
