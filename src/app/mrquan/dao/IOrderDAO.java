@@ -7,6 +7,38 @@ import java.util.List;
 
 public interface IOrderDAO {
     /**
+     * 根据订单编号 返回当前订单对象 没有返回null
+     * @param number 订单编号
+     * @return  返回 order 对象 没有返回null
+     * @throws SQLException
+     */
+    Order findOrderByNumber (String number)throws SQLException;
+
+    /**
+     * 根据场地编号 返回当前场地的订单 包括已经使用的订单 和违约的订单
+     * @param number 场地编号
+     * @return 返回order 集合 没有size为0
+     * @throws SQLException
+     */
+    List<Order> findAllOrdersBySportNumber (String number)throws SQLException;
+
+    /**
+     * 根据场地编号 返回当前场地的订单 不包括（已经使用的订单 和违约的订单）
+     * @param number 场地编号
+     * @return 返回order 集合 没有size为0
+     * @throws SQLException
+     */
+    List<Order> findOrdersBySportNumber (String number) throws SQLException;
+
+    /**
+     * 查询指定用户id的订单
+     * @param id 用户id
+     * @return 返回order 集合 没有size为0
+     * @throws SQLException
+     */
+    List<Order> findOrdersByUser(String id) throws SQLException;
+
+    /**
      * 返回订单集合 包括已经使用的订单 和违约的订单
      * @return 返回Order 集合，没有size=0
      * @throws SQLException

@@ -34,9 +34,6 @@ public class Text {
 //        preparedStatement.setString(2,"阿斯顿");
 
 
-        /**
-         * 人员表测试
-         */
 //        preparedStatement = con.prepareStatement("insert into personnels values (?,?,?,?,?,?,?,?,?,?,?)");
 //        preparedStatement.setString(1,"1ffg899r");
 //        preparedStatement.setString(2,"quan");
@@ -49,29 +46,35 @@ public class Text {
 //        preparedStatement.setString(9,null);
 //        preparedStatement.setBoolean(10,false);
 //        preparedStatement.setString(11,"鸟巢体育馆");
-//
-////        pojo.setId(rs.getString(1));//id
-////        pojo.setPassword(rs.getString(2));//密码
-////        pojo.setName(rs.getString(3));//名字
-////        pojo.setSex(rs.getBoolean(4));//性别
-////        pojo.setAge(rs.getInt(5));//年龄
-////        pojo.setTelephone(rs.getString(6));//电话
-////        pojo.setEmail(rs.getString(7));//邮箱
-////        pojo.setBalance(rs.getDouble(8));//余额
-////        pojo.setDistrict(rs.getString(9));//区域
-//////                pojo.setAbrogate();
-////        pojo.setAdministrator(rs.getBoolean(10));//管理员
-////        pojo.setStadium(rs.getString(11));//区域
-//
+
+//        pojo.setId(rs.getString(1));//id
+//        pojo.setPassword(rs.getString(2));//密码
+//        pojo.setName(rs.getString(3));//名字
+//        pojo.setSex(rs.getBoolean(4));//性别
+//        pojo.setAge(rs.getInt(5));//年龄
+//        pojo.setTelephone(rs.getString(6));//电话
+//        pojo.setEmail(rs.getString(7));//邮箱
+//        pojo.setBalance(rs.getDouble(8));//余额
+//        pojo.setDistrict(rs.getString(9));//区域
+////                pojo.setAbrogate();
+//        pojo.setAdministrator(rs.getBoolean(10));//管理员
+//        pojo.setStadium(rs.getString(11));//区域
+
 //        int len = preparedStatement.executeUpdate();
 //        System.out.printf(String.valueOf(len));
 //        preparedStatement.close();
 //        con.close();
 //        databaseConnection.close();
+        /**
+         * 人员表测试
+         */
 //         DAOFactory.getIPersonnelDAOInstance().findPersonnelById("a00001");
 //        System.out.println(DAOFactory.getIPersonnelDAOInstance().findPersonnelById("a00002"));
-//        Personnel pojo = DAOFactory.getIPersonnelDAOInstance().findPersonnelById("a00001");
-//        System.out.println(pojo);
+//        Personnel pojo = DAOFactory.getIPersonnelDAOInstance().findPersonnelById("a00002");
+//        pojo.setSex(true);
+////        System.out.println(pojo);
+//        int m = DAOFactory.getIPersonnelDAOInstance().update(pojo);
+//        System.out.println(m);
 //        List<Personnel> list = DAOFactory.getIPersonnelDAOInstance().clientList();
 //        for (int i = 0; i <list.size() ; i++) {
 //            System.out.println(list.get(i));
@@ -138,26 +141,26 @@ public class Text {
         /**
          * 场地表
          */
-        List <SportVenue> pojos = DAOFactory.getISportVenueDAOInstance().list();
-        for (int i = 0; i < pojos.size(); i++) {
-            System.out.println(pojos.get(i));
-        }
+//        List <SportVenue> pojos = DAOFactory.getISportVenueDAOInstance().list();
+//        for (int i = 0; i < pojos.size(); i++) {
+//            System.out.println(pojos.get(i));
+//        }
 //        List<SportVenue> pojos1 = DAOFactory.getISportVenueDAOInstance().findSportVenuesByName("quanquan");
 //        for (int i = 0; i < pojos1.size(); i++) {
 //            System.out.println(pojos1.get(i));
 //        }
-        SportVenue sportVenue1 = new SportVenue();
-        sportVenue1.setSerialNumber("111aaa");
-        sportVenue1.setSerialName("沈北羽毛球场");
-        sportVenue1.setDistrict("沈北");
-        sportVenue1.setStadium("沈北大体育场");
-        sportVenue1.setMotionType("羽毛球");
-        sportVenue1.setMotionProfile("羽毛球真好啊！！！");
-        sportVenue1.setAgeUpperLimit(40);
-        sportVenue1.setAgeLowerLimit(15);
-        sportVenue1.setRent(15.8);
-        sportVenue1.setOrderNumber(1);
-        int m = DAOFactory.getISportVenueDAOInstance().add(sportVenue1);
-        System.out.println(m);
+//        SportVenue sportVenue1 = new SportVenue();
+//        sportVenue1.setSerialNumber("111aaa");
+//        sportVenue1.setSerialName("沈北羽毛球场");
+//        sportVenue1.setDistrict("沈北");
+//        sportVenue1.setStadium("沈北大体育场");
+//        sportVenue1.setMotionType("羽毛球");
+//        sportVenue1.setMotionProfile("羽毛球真好啊！！！");
+//        sportVenue1.setAgeUpperLimit(40);
+//        sportVenue1.setAgeLowerLimit(15);
+//        sportVenue1.setRent(15.8);
+//        sportVenue1.setOrderNumber(1);
+//        int m = DAOFactory.getISportVenueDAOInstance().add(sportVenue1);
+//        System.out.println(m);
     }
 }

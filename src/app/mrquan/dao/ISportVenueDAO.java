@@ -15,6 +15,14 @@ public interface ISportVenueDAO {
     List<SportVenue> findSportVenuesByName(String name) throws SQLException;
 
     /**
+     * 根据id返回 SportVenue 对象
+     * @param id 要查找的id
+     * @return 返回pojo对象,没有返回null
+     * @throws SQLException
+     */
+    SportVenue findSportVenuesBySerialNumber (String id) throws SQLException;
+
+    /**
      * 返回场地集合
      * @return SportVenue 集合,没有集合长度为0
      * @throws SQLException

@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DatabaseConnection {
     private static final String DBDRIVER = "com.mysql.jdbc.Driver";
-    private static final String DBURL = "jdbc:mysql://47.94.13.255:3306/quan?useUnicode=true&amp;characterEncoding=utf-8";
+    private static final String DBURL = "jdbc:mysql://47.94.13.255:3306/quan?useUnicode=true&characterEncoding=utf8";
     private static final String DBUSER = "root";
     private static final String DBPASSWORD = "quan";
     private Connection connection = null;

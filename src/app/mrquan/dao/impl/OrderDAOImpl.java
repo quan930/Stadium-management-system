@@ -16,6 +16,178 @@ public class OrderDAOImpl implements IOrderDAO {
     public OrderDAOImpl(){
         this.con = databaseConnection.getConnection();
     }
+
+    @Override
+    public Order findOrderByNumber(String number) throws SQLException {
+        Order pojo = null;
+        try {
+            preparedStatement = con.prepareStatement("select * from orders where serialNumber = ?");
+            preparedStatement.setString(1,number);
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next()){
+                pojo = new Order();
+                pojo.setSerialNumber(rs.getString(1));
+                pojo.setReservationDate(rs.getTimestamp(2));
+                pojo.setReservationStadiumSerialNumber(rs.getString(3));
+                pojo.setLoanDate(rs.getDate(4));
+                pojo.setStartTime(rs.getTimestamp(5));
+                pojo.setEndTime(rs.getTimestamp(6));
+
+                Boolean balance = rs.getBoolean(7);//是否按时到场
+                if (rs.wasNull()){
+                    //为null
+                    pojo.setOnTime(null);
+                }else {
+                    pojo.setOnTime(balance);
+                }
+                pojo.setId(rs.getString(8));
+
+                Boolean cancel = rs.getBoolean(9);//取消
+                if (rs.wasNull()){
+                    pojo.setCancel(null);
+                }else {
+                    pojo.setCancel(cancel);
+                }
+            }
+        } catch (SQLException e) {
+            throw e;
+        }finally {
+            databaseConnection.close();
+            return pojo;
+        }
+    }
+
+    @Override
+    public List<Order> findAllOrdersBySportNumber(String number) throws SQLException {
+        List<Order> all = new ArrayList<>();
+        try {
+            preparedStatement = con.prepareStatement("select * from orders where reservationStadiumSerialNumber = ?");
+            preparedStatement.setString(1,number);
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next()){
+                Order pojo = new Order();
+                pojo.setSerialNumber(rs.getString(1));
+                pojo.setReservationDate(rs.getTimestamp(2));
+                pojo.setReservationStadiumSerialNumber(rs.getString(3));
+                pojo.setLoanDate(rs.getDate(4));
+                pojo.setStartTime(rs.getTimestamp(5));
+                pojo.setEndTime(rs.getTimestamp(6));
+
+                Boolean balance = rs.getBoolean(7);//是否按时到场
+                if (rs.wasNull()){
+                    //为null
+                    pojo.setOnTime(null);
+                }else {
+                    pojo.setOnTime(balance);
+                }
+                pojo.setId(rs.getString(8));
+
+                Boolean cancel = rs.getBoolean(9);//取消
+                if (rs.wasNull()){
+                    pojo.setCancel(null);
+                }else {
+                    pojo.setCancel(cancel);
+                }
+
+                all.add(pojo);
+            }
+        } catch (SQLException e) {
+            throw e;
+        }finally {
+            databaseConnection.close();
+            return all;
+        }
+    }
+
+    @Override
+    public List<Order> findOrdersBySportNumber(String number) throws SQLException {
+        List<Order> all = new ArrayList<>();
+        try {
+            preparedStatement = con.prepareStatement("select * from orders where reservationStadiumSerialNumber = ? and (cancel = ? or cancel is ?)");
+            preparedStatement.setString(1,number);
+            preparedStatement.setBoolean(2,false);
+            preparedStatement.setNull(3,Types.BOOLEAN);
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next()){
+                if(new Date().getTime() < rs.getDate(5).getTime()){
+                    Order pojo = new Order();
+                    pojo.setSerialNumber(rs.getString(1));
+                    pojo.setReservationDate(rs.getTimestamp(2));
+                    pojo.setReservationStadiumSerialNumber(rs.getString(3));
+                    pojo.setLoanDate(rs.getDate(4));
+                    pojo.setStartTime(rs.getTimestamp(5));
+                    pojo.setEndTime(rs.getTimestamp(6));
+
+                    Boolean balance = rs.getBoolean(7);//是否按时到场
+                    if (rs.wasNull()){
+                        //为null
+                        pojo.setOnTime(null);
+                    }else {
+                        pojo.setOnTime(balance);
+                    }
+                    pojo.setId(rs.getString(8));
+
+                    Boolean cancel = rs.getBoolean(9);//取消
+                    if (rs.wasNull()){
+                        pojo.setCancel(null);
+                    }else {
+                        pojo.setCancel(cancel);
+                    }
+                    all.add(pojo);
+                }else {
+                    continue;
+                }
+            }
+        } catch (SQLException e) {
+            throw e;
+        }finally {
+            databaseConnection.close();
+            return all;
+        }
+    }
+
+    @Override
+    public List<Order> findOrdersByUser(String id) throws SQLException {
+        List<Order> all = new ArrayList<>();
+        try {
+            preparedStatement = con.prepareStatement("select * from orders where id = ?");
+            preparedStatement.setString(1,id);
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next()){
+                Order pojo = new Order();
+                pojo.setSerialNumber(rs.getString(1));
+                pojo.setReservationDate(rs.getTimestamp(2));
+                pojo.setReservationStadiumSerialNumber(rs.getString(3));
+                pojo.setLoanDate(rs.getDate(4));
+                pojo.setStartTime(rs.getTimestamp(5));
+                pojo.setEndTime(rs.getTimestamp(6));
+
+                Boolean balance = rs.getBoolean(7);//是否按时到场
+                if (rs.wasNull()){
+                    //为null
+                    pojo.setOnTime(null);
+                }else {
+                    pojo.setOnTime(balance);
+                }
+                pojo.setId(rs.getString(8));
+
+                Boolean cancel = rs.getBoolean(9);//取消
+                if (rs.wasNull()){
+                    pojo.setCancel(null);
+                }else {
+                    pojo.setCancel(cancel);
+                }
+
+                all.add(pojo);
+            }
+        } catch (SQLException e) {
+            throw e;
+        }finally {
+            databaseConnection.close();
+            return all;
+        }
+    }
+
     @Override
     public List<Order> AllList() throws SQLException {//ok
         List<Order> all = new ArrayList<>();
@@ -69,11 +241,11 @@ public class OrderDAOImpl implements IOrderDAO {
                 if(new Date().getTime() < rs.getDate(5).getTime()){
                     Order pojo = new Order();
                     pojo.setSerialNumber(rs.getString(1));
-                    pojo.setReservationDate(rs.getDate(2));
+                    pojo.setReservationDate(rs.getTimestamp(2));
                     pojo.setReservationStadiumSerialNumber(rs.getString(3));
                     pojo.setLoanDate(rs.getDate(4));
-                    pojo.setStartTime(rs.getDate(5));
-                    pojo.setEndTime(rs.getDate(6));
+                    pojo.setStartTime(rs.getTimestamp(5));
+                    pojo.setEndTime(rs.getTimestamp(6));
 
                     Boolean balance = rs.getBoolean(7);//是否按时到场
                     if (rs.wasNull()){
@@ -186,6 +358,7 @@ public class OrderDAOImpl implements IOrderDAO {
             con.commit();//2,进行手动提交（commit
             lenAll = pojos.size();
         }catch (SQLException e){
+//            e.printStackTrace();
             con.rollback();
             throw e;
         }finally {
