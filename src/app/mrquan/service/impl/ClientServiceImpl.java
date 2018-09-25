@@ -165,6 +165,11 @@ public class ClientServiceImpl implements IClientService {
     }
 
     @Override
+    public List<Order> findAllOrdersByPersonnel(String id) throws SQLException {
+        return DAOFactory.getIOrderDAOInstance().findAllOrdersByUser(id);
+    }
+
+    @Override
     public List<Order> findOrdersByPersonnel(String id)throws SQLException {
         return DAOFactory.getIOrderDAOInstance().findOrdersByUser(id);
     }

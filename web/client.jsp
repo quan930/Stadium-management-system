@@ -10,7 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <title>Insert title here</title>
+    <title>顾客端</title>
     <style>
         html,
         body { height: 100%; padding: 0; margin: 0; }
@@ -19,14 +19,31 @@
         .left {
             float: left;
             width: 300px;
-            background-color: red;
+            /*background-color: red;*/
+            /*background: paleturquoise;*/
             height: 100%;
         }
         .right {
-            background-color: orange;
-            margin-left: 310px;
+            /*background-color: orange;*/
+            margin-left: 300px;
             height: 100%;
         }
+        .b {
+            background:linear-gradient(to right ,paleturquoise,aquamarine);
+            width: 100%;
+            height: 50px;
+            text-align: center;
+            line-height: 36px;
+            cursor: pointer;
+            font-family: Microsoft YaHei;
+            font:17px/1.5 tahoma,arial,\5b8b\4f53;
+            margin:1px;padding:0;border:0;vertical-align:baseline;
+
+        }
+        /*.b:hover {*/
+
+            /*background: paleturquoise;*/
+        /*}*/
     </style>
 </head>
 <body class="body">
@@ -36,14 +53,11 @@
 </div>
 <div class="outer">
     <div class="left">
-        <%--&lt;%&ndash;<iframe src="clientMenu.html" width="100%" height="100%" frameborder="0">&ndash;%&gt;--%>
-        <%--&lt;%&ndash;</iframe>&ndash;%&gt;--%>
-        <%--<%@include file="clientMenu.html"%>--%>
-            <form action="client" method="get" enctype="multipart/form-data" accept-charset="UTF-8" >
-                <br><input type="submit" name="menu" value="预订"><br>
-                <br><input type="submit" name="menu" value="个人"><br>
-                <br><input type="submit" name="menu" value="历史订单"><br>
-            </form>
+        <form action="client" method="get" enctype="multipart/form-data" accept-charset="UTF-8" >
+            <input class="b" type="submit" name="menu" value="预订"><br>
+            <input class="b" type="submit" name="menu" value="个人"><br>
+            <input class="b" type="submit" name="menu" value="历史订单"><br>
+        </form>
     </div>
     <div class="right">
         <%--<iframe src="clientOrder.jsp" width="100%" height="100%" frameborder="0">--%>

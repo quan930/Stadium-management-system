@@ -42,14 +42,14 @@ public class Main {
 //        }
 //        List<Personnel> list = DAOFactory.getIPersonnelDAOInstance().clientList();
 //        for (int i = 0; i < list.size(); i++) {
-//            System.out.println(list.get(i));
+//            System.out.println(list.get(i));a00002
 //        }
 
-        List<Order> list = DAOFactory.getIOrderDAOInstance().list();
-        Order order;
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println(list.get(i));
-        }
+//        List<Order> list = DAOFactory.getIOrderDAOInstance().list();
+//        Order order;
+//        for (int i = 0; i < list.size(); i++) {
+//            System.out.println(list.get(i));
+//        }
 ////        order = list.get(0);
 ////
 //        order.setSerialNumber("1234per201809093008");
@@ -75,6 +75,10 @@ public class Main {
 //        for (int i = 0; i < list.size(); i++) {
 //            System.out.println(list.get(i));
 //        }
-        ServiceFactory.getClientServiceInstance().cancelReserve("a00002201809151314");
+
+        List<Order> list = ServiceFactory.getClientServiceInstance().findOrdersByPersonnel("a00002");
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i));
+        }
     }
 }

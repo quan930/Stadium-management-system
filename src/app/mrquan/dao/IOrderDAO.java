@@ -36,6 +36,8 @@ public interface IOrderDAO {
      * @return 返回order 集合 没有size为0
      * @throws SQLException
      */
+    List<Order> findAllOrdersByUser(String id) throws SQLException;
+
     List<Order> findOrdersByUser(String id) throws SQLException;
 
     /**

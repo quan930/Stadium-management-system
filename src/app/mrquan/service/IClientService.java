@@ -73,9 +73,17 @@ public interface IClientService {
     boolean update(Personnel personnel) throws SQLException;
 
     /**
-     * 找到当前用户订单 返回pojo集合
+     * 找到当前全部用户订单 返回pojo集合
      * @param  id 用户id
      * @return 返回Order对象集合，没有size为0
+     */
+    List<Order> findAllOrdersByPersonnel(String id) throws SQLException;
+
+    /**
+     * 找到当前待使用用户订单 返回pojo集合
+     * @param  id 用户id
+     * @return 返回Order对象集合，没有size为0
+     * @throws SQLException
      */
     List<Order> findOrdersByPersonnel(String id) throws SQLException;
 

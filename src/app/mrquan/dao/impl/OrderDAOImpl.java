@@ -147,11 +147,57 @@ public class OrderDAOImpl implements IOrderDAO {
     }
 
     @Override
-    public List<Order> findOrdersByUser(String id) throws SQLException {
+    public List<Order> findAllOrdersByUser(String id) throws SQLException {
         List<Order> all = new ArrayList<>();
         try {
             preparedStatement = con.prepareStatement("select * from orders where id = ?");
             preparedStatement.setString(1,id);
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next()){
+                Order pojo = new Order();
+                pojo.setSerialNumber(rs.getString(1));
+                pojo.setReservationDate(rs.getTimestamp(2));
+                pojo.setReservationStadiumSerialNumber(rs.getString(3));
+                pojo.setLoanDate(rs.getDate(4));
+                pojo.setStartTime(rs.getTimestamp(5));
+                pojo.setEndTime(rs.getTimestamp(6));
+
+                Boolean balance = rs.getBoolean(7);//是否按时到场
+                if (rs.wasNull()){
+                    //为null
+                    pojo.setOnTime(null);
+                }else {
+                    pojo.setOnTime(balance);
+                }
+                pojo.setId(rs.getString(8));
+
+                Boolean cancel = rs.getBoolean(9);//取消
+                if (rs.wasNull()){
+                    pojo.setCancel(null);
+                }else {
+                    pojo.setCancel(cancel);
+                }
+
+                all.add(pojo);
+            }
+        } catch (SQLException e) {
+            throw e;
+        }finally {
+            databaseConnection.close();
+            return all;
+        }
+    }
+
+    @Override
+    public List<Order> findOrdersByUser(String id) throws SQLException {
+        List<Order> all = new ArrayList<>();
+
+//        select * from orders where (id = 'a00002' and startTime > now()) and (cancel = false or cancel is null);
+        try {
+            preparedStatement = con.prepareStatement("select * from orders where (id = ? and startTime > now()) and (cancel = ? or cancel is ?)");
+            preparedStatement.setString(1,id);
+            preparedStatement.setBoolean(2,false);
+            preparedStatement.setNull(3,Types.BOOLEAN);
             ResultSet rs = preparedStatement.executeQuery();
             while(rs.next()){
                 Order pojo = new Order();
