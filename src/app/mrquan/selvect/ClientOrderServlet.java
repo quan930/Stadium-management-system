@@ -21,14 +21,14 @@ public class ClientOrderServlet extends HttpServlet {
         PrintWriter out=response.getWriter();
 
         try {
-            boolean m = ServiceFactory.getClientServiceInstance().cancelReserve(number);
+            boolean m = ServiceFactory.getIClientServiceInstance().cancelReserve(number);
             if (m){
-                out.print("<script language='javascript'>alert('取消成功');window.location.href='index.html';</script>");
+                out.print("<script language='javascript'>alert('取消成功');window.location.href='=clientOrder.jsp';</script>");
             }else {
-                out.print("<script language='javascript'>alert('不可取消');window.location.href='index.html';</script>");
+                out.print("<script language='javascript'>alert('不可取消');window.location.href='clientOrder.jsp';</script>");
             }
         } catch (SQLException e) {
-            out.print("<script language='javascript'>alert('不可取消');window.location.href='index.html';</script>");
+            out.print("<script language='javascript'>alert('不可取消');window.location.href='clientOrder.jsp';</script>");
             e.printStackTrace();
         }
     }
@@ -38,7 +38,7 @@ public class ClientOrderServlet extends HttpServlet {
         if ("allList".equals(select)){
             try {
                 request.setAttribute("fun","allList");
-                request.setAttribute("lists",ServiceFactory.getClientServiceInstance().findAllOrdersByPersonnel("a00002"));
+                request.setAttribute("lists",ServiceFactory.getIClientServiceInstance().findAllOrdersByPersonnel("a00002"));
                 request.getRequestDispatcher("clientOrder.jsp").forward(request,response);
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -48,7 +48,7 @@ public class ClientOrderServlet extends HttpServlet {
             if ("list".equals(select)){
                 try {
                     request.setAttribute("fun","list");
-                    request.setAttribute("lists",ServiceFactory.getClientServiceInstance().findOrdersByPersonnel("a00002"));
+                    request.setAttribute("lists",ServiceFactory.getIClientServiceInstance().findOrdersByPersonnel("a00002"));
                     request.getRequestDispatcher("clientOrder.jsp").forward(request,response);
                 } catch (SQLException e) {
                     e.printStackTrace();

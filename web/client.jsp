@@ -20,7 +20,7 @@
             float: left;
             width: 300px;
             /*background-color: red;*/
-            /*background: paleturquoise;*/
+            background: paleturquoise;
             height: 100%;
         }
         .right {

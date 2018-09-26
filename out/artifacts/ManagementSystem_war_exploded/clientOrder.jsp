@@ -70,7 +70,6 @@
                 if ("list".equals(fun)){
                     List<Order> list= (List<Order>) request.getAttribute("lists");
                     if (list!=null){
-                        out.print("<form action=\"clientOrder\"method=\"post\">");
                         out.print("<table border=\"1\" align=\"center\">");
                         out.print("<tr><th colspan=\"6\">全部订单</th></tr>");
                         out.print("<tr><td>订单编号</td><td>预定日期</td><td>预定场地编号</td><td>租借开始时间</td><td>租借结束时间</td><td>取消</td></tr>");
@@ -80,10 +79,11 @@
                             out.print("<td>"+list.get(i).getReservationStadiumSerialNumber()+"</td>");
                             out.print("<td>"+new SimpleDateFormat("yyyy:MM:dd HH:mm").format(list.get(i).getStartTime())+"</td>");
                             out.print("<td>"+new SimpleDateFormat("yyyy:MM:dd HH:mm").format(list.get(i).getEndTime())+"</td>");
-                            out.print("<td><input type=\"submit\" name=\"num\" id=\"0\" value=\"取消\"><input type=\"hidden\" name=\"number\" value=\""+list.get(i).getSerialNumber()+"\"></td></tr>");
+                            out.print("<form action=\"clientOrder\"method=\"post\">");
+                            out.print("<td><input type=\"submit\" name=\"num\" id=\"0\" value=\"取消\"><input type=\"hidden\" name=\"number\" value=\""+list.get(i).getSerialNumber()+"\"></td>");
+                            out.print("</form></tr>");
                         }
                         out.print("</table>");
-                        out.print("</form>");
                     }
                 }
             }

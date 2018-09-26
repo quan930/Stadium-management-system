@@ -76,9 +76,31 @@ public class Main {
 //            System.out.println(list.get(i));
 //        }
 
-        List<Order> list = ServiceFactory.getClientServiceInstance().findOrdersByPersonnel("a00002");
+        List<Order> list = ServiceFactory.getIClientServiceInstance().findOrdersByPersonnel("a00002");
         for (int i = 0; i < list.size(); i++) {
             System.out.println(list.get(i));
         }
     }
+
+//    private static boolean fun(String s) {//判断邮箱
+//        if ((s.split("@")) != null) {
+//
+//        } else {
+//            return false;
+//        }
+//        if ((s.split("\\.")) != null) {
+//
+//        } else {
+//            return false;
+//        }
+//        int length = s.length();
+//        int m = s.indexOf("@");
+//        int n = s.indexOf(".");
+//        if ((m > 0) && (n < length - 1) && ((n - m) > 0)) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+//
+//    }
 }
