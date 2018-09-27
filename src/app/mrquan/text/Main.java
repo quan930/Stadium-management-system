@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class Main {
 
@@ -76,9 +78,16 @@ public class Main {
 //            System.out.println(list.get(i));
 //        }
 
-        List<Order> list = ServiceFactory.getIClientServiceInstance().findOrdersByPersonnel("a00002");
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println(list.get(i));
+//        List<Order> list = ServiceFactory.getIClientServiceInstance().findOrdersByPersonnel("a00002");
+//        for (int i = 0; i < list.size(); i++) {
+//            System.out.println(list.get(i));
+//        }
+
+
+        Map<String,Set<String>> map = ServiceFactory.getIClientServiceInstance().listSportsInit();
+        Set<String> name = map.get("name");
+        for (String str:name) {
+            System.out.println(str);
         }
     }
 

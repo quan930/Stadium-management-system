@@ -6,6 +6,8 @@ import app.mrquan.pojo.SportVenue;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public interface IClientService {
     /**
@@ -48,6 +50,12 @@ public interface IClientService {
      * @return 返回SportVenue对象集合，没有size为0
      */
     List<SportVenue> listSportsByReserve() throws SQLException;
+
+    /**
+     * 用于前端初始化选择列表
+     * @return
+     */
+    Map<String,Set<String>> listSportsInit();
 
     /**
      * 顾客预定 单个订单 成功返回true 失败返回 false

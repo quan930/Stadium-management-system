@@ -60,54 +60,5 @@
     }
 
 %>
-<%--<tr><td colspan="4" align="center"><input type="submit" value="修改"></td></tr>--%>
-<%--<tr><td colspan="2">区域</td><td><input type="checkbox" name="district">修改</td><td><input type="text" name="dis" maxlength="10" value="辽宁沈阳"></td></tr>--%>
-
-<%--<form action="clientOneself" method="post">--%>
-    <%--<table border="1" align="center">--%>
-        <%--<tr>--%>
-            <%--<td>ID</td>--%>
-            <%--<td>00001</td>--%>
-            <%--<td>姓名</td>--%>
-            <%--<td>李良全</td>--%>
-        <%--</tr>--%>
-        <%--<tr>--%>
-            <%--<td>性别</td>--%>
-            <%--<td>男</td>--%>
-            <%--<td>余额</td>--%>
-            <%--<td>59</td>--%>
-        <%--</tr>--%>
-        <%--<tr>--%>
-            <%--<td>年龄</td>--%>
-            <%--<td>18</td>--%>
-            <%--<td>违约次数</td>--%>
-            <%--<td>3</td>--%>
-        <%--</tr>--%>
-        <%--<tr>--%>
-            <%--<td colspan="2">密码</td>--%>
-            <%--<td><input type="checkbox" name="password">修改</td>--%>
-            <%--<td><input type="password" name="pass" maxlength="10" value="1234567890"></td>--%>
-        <%--</tr>--%>
-        <%--<tr>--%>
-            <%--<td colspan="2">电话</td>--%>
-            <%--<td><input type="checkbox" name="telephone">修改</td>--%>
-            <%--<td><input type="text" name="tel" value="13804128600" maxlength="11"onkeypress="return event.keyCode>=48&&event.keyCode<=57" ng-pattern="/[^a-zA-Z]/"></td>--%>
-        <%--</tr>--%>
-        <%--<tr>--%>
-            <%--<td colspan="2">E-mail</td>--%>
-            <%--<td><input type="checkbox" name="email">修改</td>--%>
-            <%--<td><input type="text" name="ema" value="123@asd.com" maxlength="20"></td>--%>
-        <%--</tr>--%>
-        <%--<tr>--%>
-            <%--<td colspan="2">区域</td>--%>
-            <%--<td><input type="checkbox" name="district">修改</td>--%>
-            <%--<td><input type="text" name="dis" maxlength="10" value="辽宁沈阳"></td>--%>
-        <%--</tr>--%>
-        <%--<tr>--%>
-            <%--<td colspan="4" align="center"><input type="submit" value="提交"></td>--%>
-        <%--</tr>--%>
-    <%--</table>--%>
-<%--</form>--%>
-
 </body>
 </html>

@@ -1,6 +1,7 @@
 package app.mrquan.service.impl;
 
 import app.mrquan.factory.DAOFactory;
+import app.mrquan.factory.ServiceFactory;
 import app.mrquan.pojo.Order;
 import app.mrquan.pojo.Personnel;
 import app.mrquan.pojo.SportVenue;
@@ -12,22 +13,9 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class ClientServiceImpl implements IClientService {
-//    private Personnel personnel;
-//    private List<Order> orders;
-//    private List<SportVenue> sportVenues;
-//    private Personnel personnel;
-//    public ClientServiceImpl(String id){
-//        try {
-//            personnel = DAOFactory.getIPersonnelDAOInstance().findPersonnelById(id);
-//        } catch (SQLException e) {
-//            personnel = null;
-//            e.printStackTrace();
-//        }
-//    }
-
     @Override
     public List<SportVenue> findSportByName(String name) throws SQLException{//ok
-        DAOFactory.getISportVenueDAOInstance().findSportVenuesByName(name);
+//        DAOFactory.getISportVenueDAOInstance().findSportVenuesByName(name);
 //        List<SportVenue> pojos = new ArrayList<>();
 //        for (int i = 0; i < sportVenues.size(); i++) {
 //            if(sportVenues.get(i).getSerialName().equals(name)) {
@@ -122,6 +110,31 @@ public class ClientServiceImpl implements IClientService {
             }
         });
         return sportVenues;
+    }
+
+    @Override
+    public Map<String, Set<String>> listSportsInit() {
+        Map<String,Set<String>> map = new HashMap<>();
+        Set<String> name = new HashSet<>();//场地名称
+        Set<String> stadium = new HashSet<>();//场馆名称
+        Set<String> type = new HashSet<>();//场地类别
+        Set<String> district = new HashSet<>();//场地区域
+        try {
+            List<SportVenue> pojos = DAOFactory.getISportVenueDAOInstance().list();
+            for (int i = 0; i < pojos.size(); i++) {
+                name.add(pojos.get(i).getSerialName());
+                stadium.add(pojos.get(i).getStadium());
+                type.add(pojos.get(i).getMotionType());
+                district.add(pojos.get(i).getDistrict());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        map.put("name",name);
+        map.put("stadium",stadium);
+        map.put("type",type);
+        map.put("district",district);
+        return map;
     }
 
     @Override
