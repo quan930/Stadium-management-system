@@ -15,15 +15,17 @@ import java.sql.SQLException;
 @WebServlet("/clientOrder")
 public class ClientOrderServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        /**
+         * 取消
+         */
         String number = request.getParameter("number");
         response.setCharacterEncoding("UTF-8");
         response.setHeader("content-type","text/html;charset=UTF-8");
         PrintWriter out=response.getWriter();
-
         try {
             boolean m = ServiceFactory.getIClientServiceInstance().cancelReserve(number);
             if (m){
-                out.print("<script language='javascript'>alert('取消成功');window.location.href='=clientOrder.jsp';</script>");
+                out.print("<script language='javascript'>alert('取消成功');window.location.href='clientOrder.jsp';</script>");
             }else {
                 out.print("<script language='javascript'>alert('不可取消');window.location.href='clientOrder.jsp';</script>");
             }
@@ -34,6 +36,9 @@ public class ClientOrderServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        /**
+         * 查询订单
+         */
         String select = request.getParameter("select");
         if ("allList".equals(select)){
             try {

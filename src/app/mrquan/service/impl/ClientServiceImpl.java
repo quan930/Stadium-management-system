@@ -192,7 +192,8 @@ public class ClientServiceImpl implements IClientService {
         Order order = DAOFactory.getIOrderDAOInstance().findOrderByNumber(serialNumber);
         order.getStartTime();
         double m = (order.getStartTime().getTime()-(new Date().getTime()))/1000/60/60/24;
-        if (m>7){
+        System.out.println(m);
+        if (m>=7){
 //            System.out.println("可以！！！");
             order.setCancel(true);
             int yesOrNo = DAOFactory.getIOrderDAOInstance().update(order);
@@ -208,7 +209,7 @@ public class ClientServiceImpl implements IClientService {
         //费用 时间冲突 年龄 爽约
         //顾客对象
         Personnel personnel = DAOFactory.getIPersonnelDAOInstance().findPersonnelById(id);
-        if (personnel.getAbrogate()<=3){//爽约
+        if (personnel.getAbrogate()<4){//爽约
             System.out.println("爽约没有达到3次以上");
             //场馆对象
             SportVenue sportVenue = DAOFactory.getISportVenueDAOInstance().findSportVenuesBySerialNumber(order.getReservationStadiumSerialNumber());
@@ -229,6 +230,7 @@ public class ClientServiceImpl implements IClientService {
                      */
                     //预约订单集合 不包括（已经使用的订单 和违约的订单）
                     List<Order> orderList = DAOFactory.getIOrderDAOInstance().list();
+                    System.out.println("订单数量"+orderList.size());
                     int orderNumber = 0;
                     for (int i = 0; i < orderList.size(); i++) {
                         if (orderList.get(i).getId().equals(personnel.getId())){
@@ -238,19 +240,27 @@ public class ClientServiceImpl implements IClientService {
                         }
                     }
                     if (orderNumber<3){
-                        System.out.println("订单没有达到上限");
+//                        System.out.println("订单没有达到上限");
                         /**
                          *时间冲突
                          */
-                        for (int i = 0; i < orderList.size(); i++) {
-                            if (orderList.get(i).getReservationStadiumSerialNumber().equals(sportVenue.getSerialNumber())){
-//                                System.out.println("+++++++++++++++++");
-                                System.out.println(order.getEndTime());
-                                if ((order.getEndTime().getTime()>orderList.get(i).getStartTime().getTime())&&(order.getEndTime().getTime()<=orderList.get(i).getEndTime().getTime())){
+                        //找出当前体育管场订单
+                        List<Order> orderByNumber = new ArrayList<>();
+                        for (Order o:orderList) {
+                            if (o.getReservationStadiumSerialNumber().equals(sportVenue.getSerialNumber())){
+                                orderByNumber.add(o);
+                            }
+                        }
+                        if (orderByNumber.size()==0){
+                            System.out.println("成功");
+                            return true;
+                        }else {
+                            for (Order o:orderByNumber) {
+                                if ((order.getEndTime().getTime()>o.getStartTime().getTime())&&(order.getEndTime().getTime()<=o.getEndTime().getTime())){
                                     System.out.println("时间冲突1");
                                     break;
                                 }else {
-                                    if ((order.getStartTime().getTime()>=orderList.get(i).getStartTime().getTime())&&(order.getStartTime().getTime()<=orderList.get(i).getEndTime().getTime())){
+                                    if ((order.getStartTime().getTime()>=o.getStartTime().getTime())&&(order.getStartTime().getTime()<=o.getEndTime().getTime())){
                                         System.out.println("时间冲突2");
                                         break;
                                     }else {
@@ -258,8 +268,6 @@ public class ClientServiceImpl implements IClientService {
                                         return true;
                                     }
                                 }
-                            }else {
-                                continue;
                             }
                         }
                     }

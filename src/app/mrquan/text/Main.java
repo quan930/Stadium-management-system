@@ -9,9 +9,7 @@ import app.mrquan.pojo.SportVenue;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Main {
 
@@ -84,11 +82,26 @@ public class Main {
 //        }
 
 
-        Map<String,Set<String>> map = ServiceFactory.getIClientServiceInstance().listSportsInit();
-        Set<String> name = map.get("name");
-        for (String str:name) {
-            System.out.println(str);
-        }
+//        Map<String,Set<String>> map = ServiceFactory.getIClientServiceInstance().listSportsInit();
+//        Set<String> name = map.get("name");
+//        for (String str:name) {
+//            System.out.println(str);
+//        }
+
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.setTime(new Date());
+//        calendar.add(Calendar.DAY_OF_YEAR,7);
+//        String minDate = new SimpleDateFormat("yyyy:MM:dd").format(calendar.getTime());
+//        calendar.setTime(new Date());
+//        calendar.add(Calendar.YEAR,1);
+//        String maxTime = new SimpleDateFormat("yyyy:MM:dd").format(calendar.getTime());
+//        System.out.println(maxTime);
+        Order order = new Order();
+        order.setLoanDate(new Date());
+        order.setEndTime(new Date());
+        order.setStartTime(new Date());
+        order.setReservationDate(new Date());
+        System.out.println(order);
     }
 
 //    private static boolean fun(String s) {//判断邮箱

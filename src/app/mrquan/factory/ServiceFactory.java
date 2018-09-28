@@ -5,7 +5,7 @@ import app.mrquan.service.IClientService;
 import app.mrquan.service.ILoginService;
 import app.mrquan.service.impl.AdministratorServiceImpl;
 import app.mrquan.service.impl.ClientServiceImpl;
-import app.mrquan.service.impl.LoginServiceImpl;
+import app.mrquan.service.impl.ILoginServiceImpl;
 
 public class ServiceFactory {
     public static IClientService getIClientServiceInstance(){
@@ -15,6 +15,6 @@ public class ServiceFactory {
         return new AdministratorServiceImpl();
     }
     public static ILoginService getILoginServiceInstance(){
-        return new LoginServiceImpl();
+        return new ILoginServiceImpl();
     }
 }
