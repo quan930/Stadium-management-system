@@ -192,8 +192,8 @@ public class ClientServiceImpl implements IClientService {
         Order order = DAOFactory.getIOrderDAOInstance().findOrderByNumber(serialNumber);
         order.getStartTime();
         double m = (order.getStartTime().getTime()-(new Date().getTime()))/1000/60/60/24;
-        System.out.println(m);
-        if (m>=7){
+//        System.out.println(m);
+        if (m>=1){
 //            System.out.println("可以！！！");
             order.setCancel(true);
             int yesOrNo = DAOFactory.getIOrderDAOInstance().update(order);
