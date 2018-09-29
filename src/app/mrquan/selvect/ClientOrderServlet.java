@@ -39,11 +39,12 @@ public class ClientOrderServlet extends HttpServlet {
         /**
          * 查询订单
          */
+        String id = (String) request.getSession().getAttribute("id");
         String select = request.getParameter("select");
         if ("allList".equals(select)){
             try {
                 request.setAttribute("fun","allList");
-                request.setAttribute("lists",ServiceFactory.getIClientServiceInstance().findAllOrdersByPersonnel("a00002"));
+                request.setAttribute("lists",ServiceFactory.getIClientServiceInstance().findAllOrdersByPersonnel(id));
                 request.getRequestDispatcher("clientOrder.jsp").forward(request,response);
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -53,7 +54,7 @@ public class ClientOrderServlet extends HttpServlet {
             if ("list".equals(select)){
                 try {
                     request.setAttribute("fun","list");
-                    request.setAttribute("lists",ServiceFactory.getIClientServiceInstance().findOrdersByPersonnel("a00002"));
+                    request.setAttribute("lists",ServiceFactory.getIClientServiceInstance().findOrdersByPersonnel(id));
                     request.getRequestDispatcher("clientOrder.jsp").forward(request,response);
                 } catch (SQLException e) {
                     e.printStackTrace();

@@ -12,15 +12,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <title>顾客端</title>
     <style>
+        .content{
+            background: url("background.jpg") no-repeat center 0;
+            opacity: 0.5;
+            position:fixed;
+            top: 0;
+            left: 0;
+            width:100%;
+            height:100%;
+            min-width:100px;
+            z-index:-10;
+            zoom: 1;
+            background-size: cover;
+            -webkit-background-size: cover;
+            -o-background-size: cover;
+        }
         html,
         body { height: 100%; padding: 0; margin: 0; }
-        .outer { height: calc(100% - 100px); padding:  0 0; box-sizing: border-box ; position: relative; }
+        .outer { height: calc(100% - 100px); padding:  0 0; box-sizing: border-box ; position: relative;}
         .outer_1{height: 100px;padding: 0;margin: 0}
         .left {
             float: left;
             width: 300px;
             /*background-color: red;*/
-            background: paleturquoise;
+            /*background: paleturquoise;*/
             height: 100%;
         }
         .right {
@@ -28,7 +43,7 @@
             margin-left: 300px;
             height: 100%;
         }
-        .b {
+        .button {
             background:linear-gradient(to right ,paleturquoise,aquamarine);
             width: 100%;
             height: 50px;
@@ -52,11 +67,12 @@
     </iframe>
 </div>
 <div class="outer">
+    <div class="content"></div>
     <div class="left">
         <form action="client" method="get" enctype="multipart/form-data" accept-charset="UTF-8" >
-            <input class="b" type="submit" name="menu" value="预订"><br>
-            <input class="b" type="submit" name="menu" value="个人"><br>
-            <input class="b" type="submit" name="menu" value="历史订单"><br>
+            <input class="button" type="submit" name="menu" value="预订"><br>
+            <input class="button" type="submit" name="menu" value="个人"><br>
+            <input class="button" type="submit" name="menu" value="历史订单"><br>
         </form>
     </div>
     <div class="right">

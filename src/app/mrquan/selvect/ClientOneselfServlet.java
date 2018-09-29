@@ -18,8 +18,9 @@ import java.sql.SQLException;
 public class ClientOneselfServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Personnel pojo = null;
+        String id = (String) request.getSession().getAttribute("id");
         try {
-            pojo = ServiceFactory.getILoginServiceInstance().login("a00002");
+            pojo = ServiceFactory.getILoginServiceInstance().login(id);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -60,7 +61,7 @@ public class ClientOneselfServlet extends HttpServlet {
         boolean m = false;
         try {
             if (update){
-                m = ServiceFactory.getIClientServiceInstance().update(pojo);
+                m = ServiceFactory.getIClientServiceInstance().update(pojo);//更新
             }
         } catch (SQLException e) {
             e.printStackTrace();

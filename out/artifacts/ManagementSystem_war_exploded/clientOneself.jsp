@@ -16,9 +16,10 @@
 <h1>顾客个人界面</h1>
 <%
     Boolean update = (Boolean) request.getAttribute("update");
+    String id = (String) request.getSession().getAttribute("id");
     if (update==null){
         try {
-            Personnel pojo = ServiceFactory.getILoginServiceInstance().login("a00002");
+            Personnel pojo = ServiceFactory.getILoginServiceInstance().login(id);
             String sex = ((pojo.getSex().equals(Boolean.TRUE)) ? "男":"女");
             if (pojo!=null){
                 out.print("<table border=\"1\" align=\"center\">");
@@ -38,7 +39,7 @@
         }
     }else{
         try {
-            Personnel pojo = ServiceFactory.getILoginServiceInstance().login("a00002");
+            Personnel pojo = ServiceFactory.getILoginServiceInstance().login(id);
             String sex = ((pojo.getSex().equals(Boolean.TRUE)) ? "男":"女");
             if (pojo!=null){
                 out.print("<form action=\"clientOneself\" method=\"post\">");

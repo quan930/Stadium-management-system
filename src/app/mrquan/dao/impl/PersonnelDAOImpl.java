@@ -59,11 +59,12 @@ public class PersonnelDAOImpl implements IPersonnelDAO {
                         abrogate++;
                     }
                 }
-                if (abrogate==0){
-                    pojo.setAbrogate(null);
-                }else {
-                    pojo.setAbrogate(abrogate);
-                }
+//                if (abrogate==0){
+//                    pojo.setAbrogate(null);
+//                }else {
+//                    pojo.setAbrogate(abrogate);
+//                }
+                pojo.setAbrogate(abrogate);
             }
         } catch (SQLException e) {
             throw e;

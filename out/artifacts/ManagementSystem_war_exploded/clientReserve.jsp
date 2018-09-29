@@ -12,7 +12,7 @@
 <html>
 <head>
 </head>
-<body bgcolor="#ffe4c4">
+<body>
 
 <h1>顾客预定界面</h1>
 

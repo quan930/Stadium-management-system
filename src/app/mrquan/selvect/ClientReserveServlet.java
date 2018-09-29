@@ -24,6 +24,7 @@ public class ClientReserveServlet extends HttpServlet {
         /**
          * 预定
          */
+        String id =(String)request.getSession().getAttribute("id");
         response.setCharacterEncoding("UTF-8");
         response.setHeader("content-type","text/html;charset=UTF-8");
         PrintWriter out=response.getWriter();
@@ -53,7 +54,7 @@ public class ClientReserveServlet extends HttpServlet {
                         order.setLoanDate( new SimpleDateFormat("yyyy-MM-dd").parse(date));
                         order.setStartTime(start);//开始时间
                         order.setEndTime(end);//结束时间
-                        order.setId("a00002");//顾客id
+                        order.setId(id);//顾客id
                         orders.add(order);
                     }else {
                         yOrN = false;
@@ -65,7 +66,7 @@ public class ClientReserveServlet extends HttpServlet {
             }
             if (yOrN){
                 try {
-                    if (ServiceFactory.getIClientServiceInstance().reserve(orders,"a00002")){
+                    if (ServiceFactory.getIClientServiceInstance().reserve(orders,id)){
                         out.print("<script language='javascript'>alert('预定成功');window.location.href='clientReserve.jsp';</script>");
                     }else {
                         out.print("<script language='javascript'>alert('预定失败');window.location.href='clientReserve.jsp';</script>");
