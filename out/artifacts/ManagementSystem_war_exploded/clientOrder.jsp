@@ -34,7 +34,7 @@
 </head>
 <body>
 
-<h1>顾客订单</h1>
+<h1>订单</h1>
 <form action="clientOrder">
     <td><input type="radio" name="select" value="allList" checked="checked"/>全部订单<input type="radio" name="select" value="list"/>待使用<input class="button" type="submit" value="查询"></td>
 </form>

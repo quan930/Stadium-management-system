@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<h1>顾客个人界面</h1>
+<h1>个人</h1>
 <%
     Boolean update = (Boolean) request.getAttribute("update");
     String id = (String) request.getSession().getAttribute("id");

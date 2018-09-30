@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<h1>顾客预定界面</h1>
+<h1>预定</h1>
 
 <%
     out.print("<form action=\"clientReserve\">");

@@ -215,7 +215,7 @@ public class ClientServiceImpl implements IClientService {
             SportVenue sportVenue = DAOFactory.getISportVenueDAOInstance().findSportVenuesBySerialNumber(order.getReservationStadiumSerialNumber());
 //            System.out.println(sportVenue);
             if ((personnel.getAge()>=sportVenue.getAgeLowerLimit())&&(personnel.getAge()<=sportVenue.getAgeUpperLimit())){//年龄判断
-//                System.out.println("年龄允许");
+                System.out.println("年龄允许");
                 /**
                  * 判断费用
                  */
@@ -223,16 +223,16 @@ public class ClientServiceImpl implements IClientService {
                 Date endTime = order.getEndTime();
                 double rent = sportVenue.getRent();
                 long hour= (endTime.getTime()-startTime.getTime())/1000/60/60;
-//                System.out.println("租金"+rent);
-//                System.out.println("小时"+hour);
-                if ((rent*hour)<sportVenue.getRent()){
-//                    System.out.println("费用够");
+                System.out.println("租金"+rent);
+                System.out.println("小时"+hour);
+                if ((rent*hour)<=personnel.getBalance()){
+                    System.out.println("费用够");
                     /**
                      * 判断订单上限
                      */
                     //预约订单集合 不包括（已经使用的订单 和违约的订单）
                     List<Order> orderList = DAOFactory.getIOrderDAOInstance().list();
-//                    System.out.println("订单数量"+orderList.size());
+                    System.out.println("订单数量"+orderList.size());
                     int orderNumber = 0;
                     for (int i = 0; i < orderList.size(); i++) {
                         if (orderList.get(i).getId().equals(personnel.getId())){
@@ -242,7 +242,7 @@ public class ClientServiceImpl implements IClientService {
                         }
                     }
                     if (orderNumber<3){
-//                        System.out.println("订单没有达到上限");
+                        System.out.println("订单没有达到上限");
                         /**
                          *时间冲突
                          */
@@ -254,19 +254,19 @@ public class ClientServiceImpl implements IClientService {
                             }
                         }
                         if (orderByNumber.size()==0){
-//                            System.out.println("成功");
+                            System.out.println("成功");
                             return true;
                         }else {
                             for (Order o:orderByNumber) {
                                 if ((order.getEndTime().getTime()>o.getStartTime().getTime())&&(order.getEndTime().getTime()<=o.getEndTime().getTime())){
-//                                    System.out.println("时间冲突1");
+                                    System.out.println("时间冲突1");
                                     break;
                                 }else {
                                     if ((order.getStartTime().getTime()>=o.getStartTime().getTime())&&(order.getStartTime().getTime()<=o.getEndTime().getTime())){
-//                                        System.out.println("时间冲突2");
+                                        System.out.println("时间冲突2");
                                         break;
                                     }else {
-//                                        System.out.println("成功");
+                                        System.out.println("成功");
                                         return true;
                                     }
                                 }
