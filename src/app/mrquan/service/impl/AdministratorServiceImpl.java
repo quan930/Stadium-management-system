@@ -1,5 +1,6 @@
 package app.mrquan.service.impl;
 
+import app.mrquan.factory.DAOFactory;
 import app.mrquan.pojo.Order;
 import app.mrquan.pojo.SportVenue;
 import app.mrquan.service.IAdministratorService;
@@ -11,7 +12,7 @@ import java.util.Map;
 public class AdministratorServiceImpl implements IAdministratorService {
     @Override
     public List<Order> findOrdersByReservationStadiumSerialNumber(String stadium) throws SQLException {
-        return null;
+        return DAOFactory.getIOrderDAOInstance().findAllOrdersByStadium(stadium);
     }
 
     @Override

@@ -53,6 +53,4 @@ public interface IAdministratorService {
      * @throws SQLException
      */
     String favoriteSport(boolean manOrWoman) throws SQLException;
-
-//    Map<String>
 }

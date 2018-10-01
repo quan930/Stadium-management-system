@@ -31,13 +31,35 @@ public interface IOrderDAO {
     List<Order> findOrdersBySportNumber (String number) throws SQLException;
 
     /**
-     * 查询指定用户id的订单
+     * 根据场馆 返回全部订单 包括已经使用的订单 和违约的订单
+     * @param stadium 场馆名称
+     * @return 返回order 集合 没有size为0
+     * @throws SQLException
+     */
+    List<Order> findAllOrdersByStadium (String stadium) throws SQLException;
+
+    /**
+     * 根据场馆 返回当前场地的订单 不包括（已经使用的订单 和违约的订单）
+     * @param stadium 场馆名称
+     * @return 返回order 集合 没有size为0
+     * @throws SQLException
+     */
+    List<Order> findOrdersByStadium (String stadium) throws SQLException;
+
+    /**
+     * 查询指定用户id的全部订单
      * @param id 用户id
      * @return 返回order 集合 没有size为0
      * @throws SQLException
      */
     List<Order> findAllOrdersByUser(String id) throws SQLException;
 
+    /**
+     * 查询指定用户id的待使用订单
+     * @param id 用户id
+     * @return 返回order 集合 没有size为0
+     * @throws SQLException
+     */
     List<Order> findOrdersByUser(String id) throws SQLException;
 
     /**
